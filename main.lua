@@ -1,14 +1,54 @@
+
+--- debuggers
+
+-- https://github.com/pkulchenko/MobDebug in e.g. ZeroBrane Studio IDE
+if arg[#arg] == "-debug" then require("mobdebug").start() end -- see docs
+
+-- https://love2d.org/forums/viewtopic.php?t=88570
+-- https://stackoverflow.com/questions/65066037/how-to-debug-lua-love2d-with-vscode
+-- tomblind.local-lua-debugger-vscode in Microsoft VisualStudio Code: see also ".vscode/launch.json"
+if os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1" then require("lldebugger").start() end -- see docs
+
+-- global objects:
+
 function love.load()
   -- from: http://notebook.kulchenko.com/zerobrane/love2d-debugging
   if arg[#arg] == "-debug" then require("mobdebug").start() end
 end
 
-local polygon={ {x=50,y=50}, {x=50,y=100}, {x=70,y=70}, {x=100,y=100}, {x=100,y=50}, }
+-- note: "concave polygon" support check
+local polygon={ {x=50,y=50}, {x=50,y=100}, {x=70,y=70}, {x=100,y=100}, {x=100,y=50}, } -- concave
+
+local polygon2={ {50,50}, {50,100}, {70,70}, {100,100}, {100,50}, } -- concave
+
+-----------------------------------
+-- https://love2d.org/forums/viewtopic.php?p=239370#p239370
+local function inside_polygon(polygon, point)
+  local last = polygon[#polygon]
+  for i = 1, #polygon do
+    local current = polygon[i]
+
+    local function halfplane(px, p1, p2)
+      return ( (p2[1] - p1[1]) * (px[2] - p1[2]) - (p2[2] - p1[2]) * (px[1] - p1[1]) ) >= 0
+    end
+
+    if halfplane(point, last, current) then
+      return false
+    end
+
+    last = current
+  end
+  return true
+end
+-----------------------------------
 
 function draw_polygon(polygon)
   for x=0,500 do
     for y=0,500 do
-      if in_concave_polygon(x, y, polygon) then
+      local is_inside
+      is_inside = in_concave_polygon(x, y, polygon) -- concave polygons also. such as 5-pointed stars.
+      ---is_inside = inside_polygon(polygon2, {x,y}) -- convex polygons only. not concave. such as triangles.
+      if is_inside then
         love.graphics.points({ {x,y} })
       end
     end
