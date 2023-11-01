@@ -14,4 +14,11 @@ https://github.com/arkenidar/point_in_polygon
 
 https://love2d.org/forums/viewtopic.php?f=14&t=90542
 
+<hr>
 
+## VisualStudio Code extensions, you can add to it to add functionalities.
+
+- extension related to Lua (scritto in linguaggio Lua) : <https://marketplace.visualstudio.com/items?itemName=sumneko.lua>
+- extension related to Love 2D (fondamento, costruito con esso) : <https://marketplace.visualstudio.com/items?itemName=pixelbyte-studios.pixelbyte-love2d>
+- Lua related Debugger : <https://marketplace.visualstudio.com/items?itemName=tomblind.local-lua-debugger-vscode>
+- Lua related Debugger : <https://marketplace.visualstudio.com/items?itemName=actboy168.lua-debug>
