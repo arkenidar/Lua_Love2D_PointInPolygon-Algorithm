@@ -1,5 +1,7 @@
 # Lua_Love2D_PointInPolygon-Algorithm
 
+Algorithm implementation in Lua language. Based on a Love2D foundation.
+
 ## using Love2D (i.e. Lua):
 
 https://github.com/arkenidar/Lua_Love2D_PointInPolygon-Algorithm
@@ -18,7 +20,7 @@ https://love2d.org/forums/viewtopic.php?f=14&t=90542
 
 ## VisualStudio Code extensions, you can add to it to add functionalities.
 
-- extension related to Lua (scritto in linguaggio Lua) : <https://marketplace.visualstudio.com/items?itemName=sumneko.lua>
-- extension related to Love 2D (fondamento, costruito con esso) : <https://marketplace.visualstudio.com/items?itemName=pixelbyte-studios.pixelbyte-love2d>
+- extension related to Lua : <https://marketplace.visualstudio.com/items?itemName=sumneko.lua>
+- extension related to Love 2D : <https://marketplace.visualstudio.com/items?itemName=pixelbyte-studios.pixelbyte-love2d>
 - Lua related Debugger : <https://marketplace.visualstudio.com/items?itemName=tomblind.local-lua-debugger-vscode>
 - Lua related Debugger : <https://marketplace.visualstudio.com/items?itemName=actboy168.lua-debug>
