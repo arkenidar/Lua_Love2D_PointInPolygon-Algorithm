@@ -11,5 +11,16 @@
             "args": ["${workspaceFolder}"],
             "cwd": "${workspaceFolder}"
         }
+        ,
+        {
+            "name": "Debug LOVE2D (from PATH e.g. Linux systems)",
+            "type": "lua-local", // tomblind.local-lua-debugger-vscode
+            "request": "launch",
+            "program": {
+                "command": "love"
+            },
+            "args": ["${workspaceFolder}"],
+            "cwd": "${workspaceFolder}"
+        }        
     ]
 }
