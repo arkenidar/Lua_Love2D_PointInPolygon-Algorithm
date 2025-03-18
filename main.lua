@@ -11,6 +11,8 @@ if os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1" then require("lldebugger").star
 -- global objects:
 
 function love.load()
+  love.window.setTitle("Love2D - Concave Polygon PIP Algorithm ( concavity removal re-formulation technique ) ")
+  love.window.setMode(500, 500, { resizable = true }) -- set window size
   -- from: http://notebook.kulchenko.com/zerobrane/love2d-debugging
   if arg[#arg] == "-debug" then require("mobdebug").start() end
 end
