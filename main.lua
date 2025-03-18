@@ -1,4 +1,3 @@
-
 --- debuggers
 
 -- https://github.com/pkulchenko/MobDebug in e.g. ZeroBrane Studio IDE
@@ -17,9 +16,9 @@ function love.load()
 end
 
 -- note: "concave polygon" support check
-local polygon={ {x=50,y=50}, {x=50,y=100}, {x=70,y=70}, {x=100,y=100}, {x=100,y=50}, } -- concave
+local polygon = { { x = 50, y = 50 }, { x = 50, y = 100 }, { x = 70, y = 70 }, { x = 100, y = 100 }, { x = 100, y = 50 }, } -- concave
 
-local polygon2={ {50,50}, {50,100}, {70,70}, {100,100}, {100,50}, } -- concave
+local polygon2 = { { 50, 50 }, { 50, 100 }, { 70, 70 }, { 100, 100 }, { 100, 50 }, }                                        -- concave
 
 -----------------------------------
 -- https://love2d.org/forums/viewtopic.php?p=239370#p239370
@@ -29,7 +28,7 @@ local function inside_polygon(polygon, point)
     local current = polygon[i]
 
     local function halfplane(px, p1, p2)
-      return ( (p2[1] - p1[1]) * (px[2] - p1[2]) - (p2[2] - p1[2]) * (px[1] - p1[1]) ) >= 0
+      return ((p2[1] - p1[1]) * (px[2] - p1[2]) - (p2[2] - p1[2]) * (px[1] - p1[1])) >= 0
     end
 
     if halfplane(point, last, current) then
@@ -43,13 +42,13 @@ end
 -----------------------------------
 
 function draw_polygon(polygon)
-  for x=0,500 do
-    for y=0,500 do
+  for x = 0, 500 do
+    for y = 0, 500 do
       local is_inside
       is_inside = in_concave_polygon(x, y, polygon) -- concave polygons also. such as 5-pointed stars.
       ---is_inside = inside_polygon(polygon2, {x,y}) -- convex polygons only. not concave. such as triangles.
       if is_inside then
-        love.graphics.points({ {x,y} })
+        love.graphics.points({ { x, y } })
       end
     end
   end
@@ -80,25 +79,24 @@ end
 function ring_index(index, size)
   if index <= size then
     if index < 1 then
-      return index+size
+      return index + size
     else
       return index
     end
   else
-    return index-size
+    return index - size
   end
 end
 
 -- x,y: a given point, polygon: a polygon (list of points)
 function in_convex_polygon(x, y, polygon)
-
   -- minimum of 3 vertices
   -- minimo 3 vertici oppure considerato punto esterno.
   if #polygon < 3 then return false end
 
-  local point = {x=x,y=y}
+  local point = { x = x, y = y }
   for i = 1, #polygon do
-    local i1,i2
+    local i1, i2
     i1 = ring_index(i, #polygon)
     i2 = ring_index(i + 1, #polygon)
     if side(point, polygon[i1], polygon[i2]) > 0 then
@@ -107,25 +105,22 @@ function in_convex_polygon(x, y, polygon)
   end
 
   return true
-
 end
 
 function in_concave_polygon(x, y, polygon)
-
   -- minimum of 3 vertices
   -- minimo 3 vertici oppure considerato punto esterno.
   if #polygon < 3 then return false end
 
   while true do
-
     -- find the first concavity vertex if there is one
     -- trova la prima concavità se c'è, ovvero
     -- il primo vertice che rende questo poligono un poligono concavo.
     local p = polygon
     local first_concavity_vertex = nil
 
-    for i=1,#polygon do
-      local i1,i2,i3
+    for i = 1, #polygon do
+      local i1, i2, i3
       i1 = ring_index(i + 1, #polygon)
       i2 = ring_index(i - 1, #polygon)
       i3 = ring_index(i, #polygon)
@@ -169,30 +164,28 @@ function in_concave_polygon(x, y, polygon)
     -- form a new (!) polygon with the concavity removed
     -- 3 - forma un nuovo poligono con questa concavità rimossa
     -- (o meglio con rimosso il punto della prima concavità)
-    
+
     local new_polygon = {}
-    for i=1,#polygon do
+    for i = 1, #polygon do
       if i ~= vertex_index then
-        table.insert( new_polygon, polygon[i] )
+        table.insert(new_polygon, polygon[i])
       end
     end
-    
+
     -- go to the cycle beginning using the polygon
     -- with the concavity removed as a polygon to test
     -- 4 - ripeti ma usando il nuovo poligono con
     -- quel punto di concavità rimosso (passo 3) come poligono da testare
     polygon = new_polygon
-    
   end
-
 end
 
 -- from: https://love2d.org/wiki/Debug
 function love.keypressed(key, u)
-   --Debug
-   if key == "rctrl" then
-     --set to whatever key you want to use
-     --currently bound to RightControl key
-     debug.debug()
-   end
+  --Debug
+  if key == "rctrl" then
+    --set to whatever key you want to use
+    --currently bound to RightControl key
+    debug.debug()
+  end
 end

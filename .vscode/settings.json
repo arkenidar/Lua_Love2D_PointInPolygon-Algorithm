@@ -1,4 +1,5 @@
 {
+    "editor.formatOnSave": true,
     "Lua.runtime.version": "LuaJIT",
     "Lua.runtime.special": {
         "love.filesystem.load": "loadfile"
