@@ -15,10 +15,15 @@ function love.load()
   if arg[#arg] == "-debug" then require("mobdebug").start() end
 end
 
--- note: "concave polygon" support check
-local polygon = { { x = 50, y = 50 }, { x = 50, y = 100 }, { x = 70, y = 70 }, { x = 100, y = 100 }, { x = 100, y = 50 }, } -- concave
+-- current polygon ( initially empty , add vertices with mouse )
+-- poligono corrente (inizialmente vuoto, aggiungi vertici con il mouse)
+local polygon = {} -- initially empty
 
-local polygon2 = { { 50, 50 }, { 50, 100 }, { 70, 70 }, { 100, 100 }, { 100, 50 }, }                                        -- concave
+-- example polygons
+-- note: "concave polygon" support check
+local polygon1 = { { x = 50, y = 50 }, { x = 50, y = 100 }, { x = 70, y = 70 }, { x = 100, y = 100 }, { x = 100, y = 50 }, } -- concave
+
+local polygon2 = { { 50, 50 }, { 50, 100 }, { 70, 70 }, { 100, 100 }, { 100, 50 }, }                                         -- concave
 
 -----------------------------------
 -- https://love2d.org/forums/viewtopic.php?p=239370#p239370
@@ -188,4 +193,10 @@ function love.keypressed(key, u)
     --currently bound to RightControl key
     debug.debug()
   end
+end
+
+function love.mousepressed(x, y, button, istouch, presses)
+  -- add a vertex to the polygon
+  -- aggiungi un vertice al poligono
+  table.insert(polygon, { x = x, y = y })
 end
